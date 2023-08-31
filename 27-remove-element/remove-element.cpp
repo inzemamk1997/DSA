@@ -11,7 +11,7 @@ public:
                 swap(nums[i], nums[last--]);
             while(last >= i && nums[last] == val) last--;
         }
-        while(last >= 0 && nums[last] == val) last--;
+        //while(last >= 0 && nums[last] == val) last--;
         return last+1;
     }
 };
