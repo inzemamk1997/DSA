@@ -2,21 +2,16 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         int n = nums.size();
-        if(nums.size() == 1)
-            return 0;
-        vector<int> dp(n, 0);
-        int i = 0;
-        while(i<n){
-            if(nums[i] != 0){
-                int k = nums[i]; 
-                if(i+k>=n-1)
-                    return dp[i]+1;
-                for(int l=i+1; l<=i+k; l++){
-                    dp[l] = (dp[l]==0) ? dp[i]+1 : min(dp[i]+1, dp[l]);
-                }
-            }
-            i++;
+        // Modifying existing array to store the maximum index that it can reach from curr_position
+        for(int i = 1; i<n; i++){
+            nums[i] = max(nums[i-1], nums[i]+i);
         }
-        return dp[n-1];
+        int ans = 0;
+        int index = 0;
+        while(index < n-1){
+            index = nums[index];
+            ans++;
+        }
+        return ans;
     }
 };
