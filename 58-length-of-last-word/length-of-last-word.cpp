@@ -1,14 +1,18 @@
 class Solution {
 public:
     int lengthOfLastWord(string s) {
-        istringstream iss(s);
-        string word;
-        vector<string> words;
-        while(iss >> word)
-            words.push_back(word);
-        int n = words.size();
-        if(n < 1)
-            return 0;
-        return (words[n-1]).size();
+        int n = s.size();
+        bool flag = false;
+        int count = 0;
+        for(int i=n-1; i>=0; i--){   
+            if(s[i] == ' ' && flag){
+                break;
+            }
+            if(s[i] != ' '){
+                flag = true;
+                count++;
+            }
+        }
+        return count;
     }
 };
