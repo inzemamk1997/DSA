@@ -1,34 +1,36 @@
 class Solution {
 public:
-    void dfs(unordered_map<int, vector<int>>& adj, int node, vector<bool> &visited){
-        for(int i : adj[node]){
-            if(!visited[i]){
-                visited[i] = true;
-                dfs(adj, i, visited);
-            }
-        }
-    }
-    int findCircleNum(vector<vector<int>>& isConnected) {
-        int n = isConnected.size();
-        vector<bool> visited(n,false);
+    
+    int findCircleNum(vector<vector<int>>& a) {
+        int n = a.size();
+        vector<vector<int>> graph(n + 1);
+        vector<int> vis(n);
         int ans = 0;
-        unordered_map<int, vector<int> > adj;
-        for(int i=0; i<isConnected.size(); i++){
-            for(int j=0; j<isConnected[i].size(); j++){
-                if(isConnected[i][j] == 1){
-                        adj[i].push_back(j);
-                        adj[j].push_back(i);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < a[0].size(); j++) {
+                if (a[i][j]) {
+                    graph[i].push_back(j);
+                    graph[j].push_back(i);
                 }
             }
         }
-        for(int i=0; i<n; i++){
-            if(!visited[i]){
-                ans++;
-                dfs(adj, i, visited);
-                visited[i] = true;
+        queue<int> q;
+        for (int i = 0; i < n; i++) {
+            if (vis[i])continue;
+            ans++;
+            q.push(i);
+            while (!q.empty()) {
+                int node = q.front();
+                q.pop();
+                if (vis[node])continue;
+                vis[node] = 1;
 
+                for (auto& i : graph[node]) {
+                    if (!vis[i])q.push(i);
+                }
             }
         }
+
         return ans;
     }
 };
