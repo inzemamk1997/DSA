@@ -4,13 +4,7 @@ class Solution(object):
         :type n: int
         :rtype: List[int]
         """
-        res = []
-        for x in range(0, n+1):
-            c = 0
-            while x != 0:
-                b = x & 1
-                if(b == 1):
-                    c += 1
-                x = x >> 1
-            res.append(c)
+        res = [0]
+        for x in range(1, n+1):
+            res.append(res[x >> 1] + x % 2)
         return res
