@@ -21,8 +21,8 @@ public:
 
         }
 
-        if(partitions.size() == 0)
-            partitions.push_back(n);
+        // if(partitions.size() == 0)
+        //     partitions.push_back(n);
         return partitions;
     }
 };
