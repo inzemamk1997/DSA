@@ -7,19 +7,18 @@ public:
         
         int n1 = s.size(), n2 = p.size();
         vector<int> ans;
-        for(int i = 0; i <= n1-n2; i++){
-            int j = i;
-            vector<int> anaFreq(26, 0);
-            if(mp[s[j] - 'a'] == 0)
-                continue;
-            while(j-i < n2){
-                if(mp[s[j] - 'a'] == 0)
-                    break;
-                anaFreq[s[j] - 'a']++;
-                j++;
+        vector<int> window(26, 0);
+
+        for(int i = 0; i < n1; i++){
+            if(i < n2){
+                window[s[i] - 'a']++;
+            }else{
+                window[s[i] - 'a']++;
+                window[s[i-n2] - 'a']--;
             }
-            if(mp == anaFreq)
-                ans.push_back(i);
+
+            if(mp == window)
+                ans.push_back(abs(n2-i-1));
         }
         return ans;
     }
