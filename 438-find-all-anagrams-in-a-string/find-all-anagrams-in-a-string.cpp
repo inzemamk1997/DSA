@@ -18,7 +18,7 @@ public:
             }
 
             if(mp == window)
-                ans.push_back(abs(n2-i-1));
+                ans.push_back(i-(n2-1));
         }
         return ans;
     }
