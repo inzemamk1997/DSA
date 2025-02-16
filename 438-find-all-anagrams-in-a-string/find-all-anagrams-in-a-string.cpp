@@ -10,6 +10,8 @@ public:
         for(int i = 0; i <= n1-n2; i++){
             int j = i;
             unordered_map<char, int> anaFreq;
+            if(mp.find(s[j]) == mp.end())
+                continue;
             while(j-i < n2){
                 anaFreq[s[j]]++;
                 j++;
