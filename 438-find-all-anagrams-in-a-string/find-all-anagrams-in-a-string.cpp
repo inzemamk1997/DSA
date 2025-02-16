@@ -1,19 +1,21 @@
 class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
-        unordered_map<char, int> mp;
+        vector<int> mp(26, 0);
         for(char ch : p)
-            mp[ch]++;
+            mp[ch - 'a']++;
         
         int n1 = s.size(), n2 = p.size();
         vector<int> ans;
         for(int i = 0; i <= n1-n2; i++){
             int j = i;
-            unordered_map<char, int> anaFreq;
-            if(mp.find(s[j]) == mp.end())
+            vector<int> anaFreq(26, 0);
+            if(mp[s[j] - 'a'] == 0)
                 continue;
             while(j-i < n2){
-                anaFreq[s[j]]++;
+                if(mp[s[j] - 'a'] == 0)
+                    break;
+                anaFreq[s[j] - 'a']++;
                 j++;
             }
             if(mp == anaFreq)
