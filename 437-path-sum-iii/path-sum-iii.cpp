@@ -11,28 +11,25 @@
  */
 class Solution {
 private:
-    void findPathSum(TreeNode* root, int &targetSum, long currSum){
-        if(root == nullptr){
-            return; 
-        }
-        currSum += root->val;
-        if(currSum == targetSum) {
-            count++;
-        }
-        
-        findPathSum(root->left, targetSum, currSum);
-        findPathSum(root->right, targetSum, currSum);
-        
+    int c = 0;
+    void findPath(TreeNode* root, int targetSum, long currSum){
+        if(root == nullptr)
+            return;
+        currSum += (long)root->val;
+        if(currSum == targetSum)
+            c++;
+        findPath(root->left, targetSum, currSum );
+        findPath(root->right, targetSum, currSum );
+
     }
 public:
-    int count = 0;
     int pathSum(TreeNode* root, int targetSum) {
         if(root == nullptr)
-            return 0;
+            return c;
         long currSum = 0;
-        findPathSum(root, targetSum, currSum);
+        findPath(root, targetSum, currSum);
         pathSum(root->left, targetSum);
         pathSum(root->right, targetSum);
-        return count;
+        return c;
     }
 };
