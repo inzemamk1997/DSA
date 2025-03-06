@@ -2,10 +2,7 @@ class Solution {
 public:
     
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        auto Compare = [](const pair<int, int> &a, const pair<int, int> &b){
-            return a.first < b.first;
-        };
-        priority_queue<pair<int, int>, vector<pair<int, int>> , decltype(Compare)> pq(Compare);
+        priority_queue<pair<int, int>> pq;
         unordered_map<int, int> mp;
         for(int num : nums)
             mp[num]++;
