@@ -1,9 +1,9 @@
 class Solution {
     class Pair {
-        int first;
+        Integer first;
         String second;
 
-        Pair(int first, String second){
+        Pair(Integer first, String second){
             this.first = first;
             this.second = second;
         }
@@ -16,7 +16,7 @@ class Solution {
         }
        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> {
             if (a.first != b.first) {
-                return a.first - b.first; // min-heap by frequency
+                return a.first.compareTo(b.first);
             } else {
                 return b.second.compareTo(a.second); // reverse lex order
             }
