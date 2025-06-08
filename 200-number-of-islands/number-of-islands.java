@@ -13,15 +13,15 @@ class Solution {
             for(int j = 0; j < n; j++){
                 if(grid[i][j] == '1'){
                     island++;
-                    queue.addLast(new int[]{i,j});
+                    queue.add(new int[]{i,j});
                     grid[i][j] = '0';
                     while(!queue.isEmpty()){
-                        int[] pos = queue.pollFirst();
+                        int[] pos = queue.poll();
                         for(int[] dir : directions){
                             int new_x = pos[0] + dir[0]; 
                             int new_y = pos[1] + dir[1]; 
                             if(!(new_x < 0 || new_x >=m || new_y < 0 || new_y >= n) && grid[new_x][new_y] == '1'){
-                                queue.addLast(new int[]{new_x, new_y});
+                                queue.add(new int[]{new_x, new_y});
                                 grid[new_x][new_y] = '0';
                             }
                         }
