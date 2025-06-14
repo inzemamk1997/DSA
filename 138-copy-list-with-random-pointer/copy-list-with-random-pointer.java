@@ -15,26 +15,34 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Node deepCopyHead = new Node(0);
-        Node dummyNode = deepCopyHead;
-        Node t = head;
-        HashMap<Node, Node> mp = new HashMap<>();
-        while(t != null){
-            Node temp = new Node(t.val);
-            dummyNode.next = temp;
-            mp.put(t, temp);
-            t = t.next;
-            dummyNode = dummyNode.next;
+        Node dummyNode = new Node(0);
+        if(head == null)
+            return null;
+        Node currNode = head;
+        while(currNode != null){
+            Node copyNode = new Node(currNode.val);
+            Node currNodeNext = currNode.next;
+            currNode.next = copyNode;
+            copyNode.next = currNodeNext;
+            currNode = currNodeNext;
         }
-        mp.put(null, null);
-        dummyNode.next = null;
-        t = head;
-        dummyNode = deepCopyHead.next;
-        while(t != null){
-            dummyNode.random = mp.get(t.random);
-            dummyNode = dummyNode.next;
-            t = t.next;
+        
+        currNode = head;
+        
+        while(currNode != null && currNode.next != null){
+            currNode.next.random = currNode.random != null ? currNode.random.next : null;
+            currNode = currNode.next.next;  
         }
-        return deepCopyHead.next;
+        
+        currNode = head;
+        Node temp = dummyNode;
+        while(currNode != null){
+            temp.next = currNode.next;
+            currNode.next = currNode.next != null ? currNode.next.next : null;
+            currNode = currNode.next;
+            temp = temp.next;
+        }
+        temp.next = null;
+        return dummyNode.next;
     }
 }
