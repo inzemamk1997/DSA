@@ -3,29 +3,32 @@ class Solution {
                                           "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
                                           "Seventeen", "Eighteen", "Nineteen"};
     private final String[] tens = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
-    private final String[] thousands = {"", "Thousand", "Million", "Billion"};
+
 
     public String numberToWords(int num) {
         if (num == 0) return "Zero";
 
         int i = 0;
-        StringBuilder result = new StringBuilder();
-
-        while (num > 0) {
-            if (num % 1000 != 0) {
-                result.insert(0, helper(num % 1000) + thousands[i] + " ");
-            }
-            num /= 1000;
-            i++;
+        if(num < 20){
+            return belowTwenty[num];
         }
-
-        return result.toString().trim();
+        if(num < 100){
+            return tens[num / 10] + (num % 10 != 0 ? " " + belowTwenty[num%10] : "");
+        }
+        if(num < 1000){
+            return belowTwenty[num/100] + " Hundred" + (num%100 != 0 ? " " + numberToWords(num%100) : "");
+        }
+        if(num < 1000000){
+            return numberToWords(num/1000) + " Thousand"+ (num%1000 != 0 ? " " + numberToWords(num%1000) : "");
+        }
+        if(num < 1000000000){
+            return numberToWords(num/1000000) + " Million"+ (num%1000000 != 0 ? " " + numberToWords(num%1000000) : "");
+        }
+        
+        return belowTwenty[num/1000000000] + " Billion"+ (num%1000000000 != 0 ? " " + numberToWords(num%1000000000) : "");
+        
+        
     }
 
-    private String helper(int num) {
-        if (num == 0) return "";
-        else if (num < 20) return belowTwenty[num] + " ";
-        else if (num < 100) return tens[num / 10] + " " + helper(num % 10);
-        else return belowTwenty[num / 100] + " Hundred " + helper(num % 100);
-    }
+   
 }
