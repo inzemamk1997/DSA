@@ -18,7 +18,6 @@ class Solution {
         Arrays.fill(dp, -1);
         long ans = minCoin(coins, amount);
         //System.out.println(amount);
-        
         if(dp[amount] >= Integer.MAX_VALUE)
             return -1;
         return (int)dp[amount];
