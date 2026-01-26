@@ -2,8 +2,12 @@ class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         int n = nums.length;
         Arrays.sort(nums);
-        Set<List<Integer>> ans = new HashSet<>();
+        List<List<Integer>> ans = new ArrayList<>();
         for(int i = 0; i < n - 2; i++){
+            if (nums[i] > 0) break; 
+            
+            // 3. Optimization: Skip duplicates for 'i' manually
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
             int j = i + 1;
             int k = n - 1;
             while(j < k){
@@ -26,6 +30,6 @@ class Solution {
                 
             }
         }
-        return new ArrayList<>(ans);
+        return ans;
     }
 }
