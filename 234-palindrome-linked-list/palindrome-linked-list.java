@@ -9,26 +9,39 @@
  * }
  */
 class Solution {
-    boolean isPalindromeString(StringBuilder s){
-        int n = s.length();
-        int i = 0, j = n - 1;
-        while(i <= j){
-            if(s.charAt(i) == s.charAt(j)){
-                i++;j--;
-            }else{
-                return false;
-            }
+    public ListNode getMiddle(ListNode head){
+        ListNode s = head;
+        ListNode f = head;
+        while(f != null && f.next != null){
+            s = s.next;
+            f = f.next.next;
         }
-        return true;
+        return s;
+    }
+    public ListNode reverse(ListNode head){
+        ListNode curr = head, prev = null;
+        while(curr != null){
+            ListNode currNext = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = currNext;
+        }
+        return prev;
     }
     public boolean isPalindrome(ListNode head) {
-        StringBuilder s = new StringBuilder("");
-        ListNode t = head;
-        while(t != null){
-            s.append(t.val);
-            t = t.next;
-        }
+        // find the middle
+        // reverse the 2nd half
+        // Now Compare
 
-        return isPalindromeString(s);
+        ListNode mid = getMiddle(head);
+
+        ListNode reverseHead = reverse(mid);
+        
+        while(head != null && reverseHead != null){
+            if(head.val != reverseHead.val) return false;
+            head = head.next;
+            reverseHead = reverseHead.next;
+        }
+        return (reverseHead == null);
     }
 }
