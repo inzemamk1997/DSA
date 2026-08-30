@@ -10,21 +10,17 @@
  */
 class Solution {
     public ListNode removeNodes(ListNode head) {
-        Deque<Integer> dq = new ArrayDeque<>();
+        Deque<ListNode> dq = new ArrayDeque<>();
         while(head != null){
-            while(!dq.isEmpty() && head.val > dq.peekLast())
+            while(!dq.isEmpty() && head.val > dq.peekLast().val)
                 dq.pollLast();
-            dq.addLast(head.val);
+            if(!dq.isEmpty())
+                dq.peekLast().next = head;
+            dq.addLast(head);
             head = head.next;
         }
-    
-        ListNode h = new ListNode(0);
-        ListNode temp = h;
-        while(!dq.isEmpty()){
-            ListNode t = new ListNode(dq.pollFirst());
-            temp.next = t;
-            temp = temp.next;
-        }
-        return h.next;
+        if(!dq.isEmpty())
+            return dq.peekFirst();
+        return null;
     }
 }
