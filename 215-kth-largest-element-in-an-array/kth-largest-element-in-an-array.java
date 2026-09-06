@@ -4,8 +4,8 @@ class Solution {
         // 1 2 3 4 5
         PriorityQueue<Integer> pq = Arrays.stream(nums)
                                     .boxed()
-                                    .collect(Collectors.toCollection(PriorityQueue::new));
-        for(int i = 0; i < n-k; i++)
+                                    .collect(Collectors.toCollection(() -> new PriorityQueue<>(Collections.reverseOrder())));
+        for(int i = 0; i < k-1; i++)
             pq.poll();
         return pq.peek();
     }
