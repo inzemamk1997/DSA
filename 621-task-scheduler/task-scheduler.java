@@ -21,29 +21,27 @@ class Solution {
             pq.offer(new TaskAndFreq(m.getKey(), m.getValue()));
         }
         
-        for(Map.Entry<Character, Integer> m : mp.entrySet()){
-            mp.put(m.getKey(), 0);
-        }
-        int currSeat = 0;
+        int totalTime = 0;
         while(!pq.isEmpty()){
             List<TaskAndFreq> temp = new ArrayList<>();
-            TaskAndFreq t = null;
-            Boolean found  = false;
-            while( !pq.isEmpty() && !found){ 
-                t = pq.poll();             
-                if(currSeat >= mp.get(t.ch)){
-                    mp.put(t.ch, mp.get(t.ch) + n + 1);
-                    t.freq -= 1;
-                    found = true;
-                }
+            int cycle = n + 1;
+            int totalTask = 0;
+            // Try to schedule n+1 diff task
+            while(!pq.isEmpty() && cycle > 0){ 
+                TaskAndFreq t = pq.poll();             
+                t.freq--;
                 temp.add(t);
+                cycle--;
+                totalTask++;
             }
-            currSeat++;
 
             for(TaskAndFreq t1 : temp){
                 if(t1.freq > 0) pq.offer(t1);
             }
+
+            if(pq.isEmpty()) totalTime += totalTask;
+            else totalTime += n + 1;
         }
-        return currSeat;
+        return totalTime;
     }
 }
